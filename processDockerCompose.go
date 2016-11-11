@@ -20,6 +20,7 @@ import (
 	"log"
 	"os"
 	"path/filepath"
+	"strings"
 
 	"github.com/docker/libcompose/config"
 	"github.com/docker/libcompose/project"
@@ -28,6 +29,9 @@ import (
 
 func parseDockerCompose() *project.Project {
 	composeFile := composeFilePath + "docker-compose.yml"
+	if strings.HasSuffix(composeFilePath, ".yml") {
+		composeFile = composeFilePath
+	}
 	p := project.NewProject(&project.Context{
 		ProjectName:  "kube",
 		ComposeFiles: []string{composeFile},
